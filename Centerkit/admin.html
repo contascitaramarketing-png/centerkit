@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Área do Cliente — CenterKit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div id="ck-header"></div>
+  <div class="login-shell">
+    <div class="login-art">
+      <a href="index.html"><img src="https://www.centerkit.com.br/Centerkit%20Logo%20Completo_Prancheta%201.png" style="height:48px;filter:brightness(0) invert(1)"></a>
+      <h2>Bem-vindo à Área do Cliente CenterKit</h2>
+      <p>Acompanhe seus pedidos, baixe documentos técnicos, gerencie sua lista de cotação e acesse condições comerciais exclusivas.</p>
+      <ul id="benefits"></ul>
+    </div>
+    <div class="login-form-wrap">
+      <div class="login-form">
+        <h1>Acessar minha conta</h1>
+        <p class="sub">Use seu e-mail cadastrado para entrar.</p>
+        <form id="loginForm">
+          <div class="field"><label>E-mail</label><input type="email" placeholder="seu@email.com" required></div>
+          <div class="field"><label>Senha</label><input type="password" placeholder="••••••••" required></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:13px">
+            <label style="display:flex;gap:8px;align-items:center;color:var(--ck-muted);font-weight:500"><input type="checkbox"> Lembrar-me</label>
+            <a href="#">Esqueci minha senha</a>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="loginBtn"></button>
+          <div style="text-align:center;margin:24px 0;color:var(--ck-muted);font-size:13px;position:relative"><span style="background:#fff;padding:0 12px;position:relative;z-index:1">ou</span><span style="position:absolute;left:0;right:0;top:50%;height:1px;background:var(--ck-line)"></span></div>
+          <a href="#" class="btn btn-secondary btn-block">Solicitar primeiro acesso</a>
+          <p style="text-align:center;margin:24px 0 0;font-size:13px;color:var(--ck-muted)">Ainda não é cliente? <a href="fale-conosco.html">Fale conosco</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id="ck-footer"></div>
+  <script src="assets/icons.js"></script><script src="assets/data.js"></script><script src="assets/layout.js"></script>
+  <script>
+    CK.render({});const I=CK.I;
+    document.getElementById("loginBtn").innerHTML = `Entrar ${I("arrowRight")}`;
+    document.getElementById("benefits").innerHTML = [
+      "Acompanhamento de pedidos em tempo real",
+      "Histórico de compras e re-pedidos",
+      "Download de notas, bulas e certificados",
+      "Condições comerciais personalizadas",
+    ].map(b=>`<li>${I("check")} <span>${b}</span></li>`).join("");
+    document.getElementById("loginForm").onsubmit=(e)=>{e.preventDefault();CK.showToast("Login simulado — área restrita do cliente");};
+  </script>
+<script src="assets/tweaks.js"></script>
+</body>
+</html>

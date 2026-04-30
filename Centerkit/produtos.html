@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos — CenterKit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div id="ck-header"></div>
+  <section class="page-header">
+    <div class="container">
+      <nav class="breadcrumbs"><a href="index.html">Home</a><span class="sep">/</span><span>Produtos</span></nav>
+      <h1>Catálogo completo</h1>
+      <p>Explore todas as categorias de produtos para análises clínicas — incluindo nossa linha veterinária dedicada.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-24">
+        <span class="eyebrow" style="justify-content:center">Análises Clínicas</span>
+        <h2 class="section-title">Linhas de produtos</h2>
+      </div>
+      <div class="cat-grid" id="prodGrid"></div>
+
+      <div class="text-center mt-48 mb-24" id="vet">
+        <span class="eyebrow" style="justify-content:center;color:#C77700">::before:bg=#C77700;Linha Veterinária</span>
+        <h2 class="section-title">Diagnóstico Veterinário</h2>
+        <p class="section-lead" style="margin:0 auto;text-align:center">Reagentes, anticoagulantes, equipamentos e testes rápidos dedicados à medicina veterinária.</p>
+      </div>
+      <div class="cat-grid" id="vetGrid"></div>
+    </div>
+  </section>
+
+  <section class="section section-bg">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Equipamentos</span>
+          <h2 class="section-title">Linha de equipamentos</h2>
+        </div>
+      </div>
+      <div class="cat-grid" id="equipGrid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))"></div>
+    </div>
+  </section>
+
+  <div id="ck-footer"></div>
+  <script src="assets/icons.js"></script><script src="assets/data.js"></script><script src="assets/layout.js"></script>
+  <script>
+    CK.render({ active: "produtos" });
+    const I = CK.I, D = CK.D;
+    const renderCat = (c) => `
+      <a href="categoria.html?id=${c.id}&nome=${encodeURIComponent(c.name)}" class="cat-card ${c.vet?"vet":""}">
+        <span class="ic">${I(c.icon)}</span>
+        <span class="name">${c.name}</span>
+      </a>`;
+    document.getElementById("prodGrid").innerHTML = D.productCategories.filter(c => !c.vet).map(renderCat).join("");
+    document.getElementById("vetGrid").innerHTML = D.productCategories.filter(c => c.vet).map(renderCat).join("");
+    document.getElementById("equipGrid").innerHTML = D.equipmentCategories.map(c => `
+      <a href="categoria.html?id=${c.id}&nome=${encodeURIComponent(c.name)}" class="cat-card">
+        <span class="ic">${I(c.icon)}</span>
+        <span class="name">${c.short}</span>
+      </a>`).join("");
+  </script>
+<script src="assets/tweaks.js"></script>
+</body>
+</html>

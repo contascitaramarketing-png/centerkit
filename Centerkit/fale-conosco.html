@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Fale Conosco — CenterKit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div id="ck-header"></div>
+  <section class="page-header">
+    <div class="container">
+      <nav class="breadcrumbs"><a href="index.html">Home</a><span class="sep">/</span><span>Fale Conosco</span></nav>
+      <h1>Fale Conosco</h1>
+      <p>Solicite orçamentos, tire dúvidas técnicas ou agende uma visita comercial — escolha o canal mais conveniente para você.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div>
+          <span class="eyebrow">Canais de atendimento</span>
+          <h2 class="section-title" style="font-size:28px">Estamos prontos para atender</h2>
+          <p style="color:var(--ck-muted);margin-bottom:24px">Equipe comercial e técnica disponível em horário comercial. Para urgências técnicas, utilize nosso WhatsApp.</p>
+          <div class="contact-card" id="info"></div>
+        </div>
+
+        <div class="contact-card">
+          <h2 style="font-family:var(--font-display);font-size:24px;margin:0 0 8px;color:var(--ck-dark)">Envie sua mensagem</h2>
+          <p style="color:var(--ck-muted);margin:0 0 24px;font-size:14px">Responderemos em até 1 dia útil. Para orçamentos com urgência, prefira o WhatsApp.</p>
+          <form id="contactForm">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <div class="field"><label>Nome completo *</label><input type="text" required></div>
+              <div class="field"><label>Empresa / Laboratório</label><input type="text"></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <div class="field"><label>E-mail *</label><input type="email" required></div>
+              <div class="field"><label>WhatsApp / Telefone *</label><input type="tel" placeholder="(XX) XXXXX-XXXX" required></div>
+            </div>
+            <div class="field"><label>Assunto</label>
+              <select><option>Solicitação de orçamento</option><option>Dúvida técnica</option><option>Assessoria científica</option><option>Assessoria técnica</option><option>Outro</option></select>
+            </div>
+            <div class="field"><label>Mensagem *</label><textarea rows="5" required style="resize:vertical;font-family:inherit"></textarea></div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="sendBtn"></button>
+            <p style="font-size:12px;color:var(--ck-muted);margin:14px 0 0;text-align:center">Ao enviar, você concorda com nossa política de privacidade.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-bg" style="padding-top:0">
+    <div class="container">
+      <div style="background:#fff;border:1px solid var(--ck-line);border-radius:var(--radius-lg);overflow:hidden">
+        <div style="aspect-ratio:21/7;background:linear-gradient(135deg,var(--ck-green-mist) 0%,var(--ck-green-soft) 100%);display:flex;align-items:center;justify-content:center;color:var(--ck-green-deep);font-size:14px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase">Mapa — Rua CenterKit, 100 — SP</div>
+      </div>
+    </div>
+  </section>
+
+  <div id="ck-footer"></div>
+  <script src="assets/icons.js"></script><script src="assets/data.js"></script><script src="assets/layout.js"></script>
+  <script>
+    CK.render({active:"contato"});const I=CK.I,D=CK.D;
+    document.getElementById("sendBtn").innerHTML = `Enviar mensagem ${I("arrowRight")}`;
+    document.getElementById("info").innerHTML = [
+      ["pin","Endereço",D.address,null],
+      ["phone","Telefone",D.phone,`tel:${D.phoneRaw}`],
+      ["whatsapp","WhatsApp",D.whatsapp,`https://wa.me/${D.whatsappRaw}`],
+      ["email","E-mail",D.email,`mailto:${D.email}`],
+      ["clock","Horário","Segunda a Sexta · 8h às 18h",null],
+    ].map(([ic,t,v,h]) => `
+      <div class="contact-info-block">
+        <span class="ic">${I(ic)}</span>
+        <div>
+          <strong>${t}</strong>
+          ${h?`<a href="${h}" target="_blank">${v}</a>`:`<span>${v}</span>`}
+        </div>
+      </div>`).join("");
+    document.getElementById("contactForm").onsubmit = (e) => { e.preventDefault(); CK.showToast("Mensagem enviada — entraremos em contato em breve!"); e.target.reset(); };
+  </script>
+<script src="assets/tweaks.js"></script>
+</body>
+</html>
