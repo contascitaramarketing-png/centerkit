@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Assessoria Técnica — CenterKit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div id="ck-header"></div>
+  <section class="page-header">
+    <div class="container">
+      <nav class="breadcrumbs"><a href="index.html">Home</a><span class="sep">/</span><a href="#">Serviços</a><span class="sep">/</span><span>Assessoria Técnica</span></nav>
+      <h1>Assessoria Técnica</h1>
+      <p>Instalação, treinamento operacional, manutenção preventiva e corretiva — com SLA definido e atendimento em todo o território nacional.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="service-hero">
+        <div>
+          <span class="eyebrow">Suporte técnico</span>
+          <h2 class="section-title">Equipamentos sempre prontos para a rotina</h2>
+          <p style="font-size:16px;color:var(--ck-muted);line-height:1.7">Equipe técnica certificada pelos fabricantes, atuando em campo e remotamente. Manutenções programadas, peças originais e tempo de resposta compatível com a criticidade do seu laboratório.</p>
+          <ul class="service-list" id="list2"></ul>
+          <div style="margin-top:28px"><a href="fale-conosco.html" class="btn btn-primary">Agendar Visita Técnica</a></div>
+        </div>
+        <div class="about-img" style="background-image:url('https://www.centerkit.com.br/uploads/69adf1d82a3de.jpeg');aspect-ratio:1/1"></div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-bg">
+    <div class="container">
+      <div class="text-center mb-24"><span class="eyebrow" style="justify-content:center">Nossos serviços</span><h2 class="section-title">Atendimento técnico completo</h2></div>
+      <div class="values-grid" id="cards"></div>
+    </div>
+  </section>
+  <div id="ck-footer"></div>
+  <script src="assets/icons.js"></script><script src="assets/data.js"></script><script src="assets/layout.js"></script>
+  <script>
+    CK.render({});const I=CK.I;
+    document.getElementById("list2").innerHTML = [
+      ["truck","Instalação e startup","Comissionamento completo de equipamentos com testes de aceitação e qualificação."],
+      ["headset","Treinamento operacional","Capacitação prática da equipe que opera o equipamento na rotina diária."],
+      ["shield","Manutenção preventiva","Cronograma anual de manutenção programada para manter o desempenho ideal."],
+      ["thermo","Manutenção corretiva","Atendimento ágil para reparos com peças originais e técnicos certificados."],
+    ].map(i=>`<li><span class="ic">${I(i[0])}</span><div><strong>${i[1]}</strong><span>${i[2]}</span></div></li>`).join("");
+    document.getElementById("cards").innerHTML = [
+      ["truck","Instalação certificada","Instalação por técnicos treinados pelos fabricantes, com qualificação operacional documentada."],
+      ["headset","Treinamento prático","Treinamento hands-on da equipe operacional no próprio laboratório."],
+      ["shield","Manutenção preventiva","Cronograma anual com cobertura completa, alertas automáticos e relatórios técnicos."],
+      ["thermo","Manutenção corretiva","Tempo de resposta definido por SLA e estoque regional de peças críticas."],
+      ["certif","Calibração rastreável","Calibração de instrumentos com certificados rastreáveis à RBC quando aplicável."],
+      ["bell","Atendimento remoto","Suporte por telefone, WhatsApp e acesso remoto seguro para diagnóstico ágil."],
+    ].map(c=>`<div class="value-card"><span class="ic">${I(c[0])}</span><h4>${c[1]}</h4><p>${c[2]}</p></div>`).join("");
+  </script>
+<script src="assets/tweaks.js"></script>
+</body>
+</html>

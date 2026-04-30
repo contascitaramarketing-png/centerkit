@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Empresa — CenterKit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div id="ck-header"></div>
+
+  <section class="page-header">
+    <div class="container">
+      <nav class="breadcrumbs"><a href="index.html">Home</a><span class="sep">/</span><span>A Empresa</span></nav>
+      <h1>Mais de 30 anos cuidando do diagnóstico</h1>
+      <p>A CenterKit é referência nacional em soluções para laboratórios de análises clínicas — distribuímos reagentes, equipamentos e suprimentos com qualidade certificada e suporte técnico especializado.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="about-hero">
+        <div>
+          <span class="eyebrow">Quem somos</span>
+          <h2 class="section-title">Excelência em soluções laboratoriais desde a fundação</h2>
+          <p style="font-size:16px;color:var(--ck-muted);line-height:1.7">A CenterKit nasceu com um propósito claro: oferecer aos laboratórios de análises clínicas um parceiro confiável, capaz de unir variedade de catálogo, qualidade certificada e atendimento próximo. Em mais de três décadas, construímos relações duradouras com clientes em todo o território nacional, sempre comprometidos com a precisão dos resultados que sustentam o diagnóstico médico.</p>
+          <p style="font-size:16px;color:var(--ck-muted);line-height:1.7;margin-top:14px">Nosso portfólio cobre desde reagentes de bioquímica e hematologia até equipamentos completos para diagnóstico — incluindo uma linha veterinária dedicada. Tudo isso apoiado por uma equipe de assessoria científica e técnica que acompanha o cliente em cada etapa.</p>
+          <div style="display:flex;gap:12px;margin-top:28px;flex-wrap:wrap">
+            <a href="fale-conosco.html" class="btn btn-primary">Falar com Especialista</a>
+            <a href="produtos.html" class="btn btn-secondary">Ver Catálogo</a>
+          </div>
+        </div>
+        <div class="about-img" style="background-image:url('https://www.centerkit.com.br/uploads/69adf1f7cc541.jpeg')">
+          <div class="badge-yrs"><strong>30+</strong><span>anos de mercado</span></div>
+        </div>
+      </div>
+
+      <div class="stat-grid" id="stats"></div>
+
+      <div class="text-center mt-48 mb-24">
+        <span class="eyebrow" style="justify-content:center">O que nos move</span>
+        <h2 class="section-title">Missão, Visão e Valores</h2>
+      </div>
+      <div class="values-grid" id="mvv"></div>
+    </div>
+  </section>
+
+  <section class="section section-bg">
+    <div class="container">
+      <div class="text-center mb-24">
+        <span class="eyebrow" style="justify-content:center">Diferenciais</span>
+        <h2 class="section-title">Por que laboratórios escolhem a CenterKit</h2>
+      </div>
+      <div class="values-grid" id="diff"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div style="background:linear-gradient(135deg,var(--ck-green-deep) 0%,var(--ck-green) 100%);border-radius:var(--radius-lg);padding:56px;color:#fff;text-align:center;position:relative;overflow:hidden">
+        <h2 style="font-family:var(--font-display);font-size:36px;margin:0 0 12px;letter-spacing:-0.02em">Vamos conversar sobre o seu laboratório?</h2>
+        <p style="font-size:17px;color:rgba(255,255,255,0.9);max-width:640px;margin:0 auto 28px">Nossa equipe está pronta para entender suas necessidades e propor as melhores soluções em produtos e equipamentos.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="fale-conosco.html" class="btn btn-lg" style="background:#fff;color:var(--ck-green-deep)">Solicitar Orçamento</a>
+          <a href="https://wa.me/5516991363022" target="_blank" class="btn btn-whats btn-lg" id="waCta"></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="ck-footer"></div>
+  <script src="assets/icons.js"></script><script src="assets/data.js"></script><script src="assets/layout.js"></script>
+  <script>
+    CK.render({ active: "empresa" });
+    const I = CK.I;
+    document.getElementById("waCta").innerHTML = `${I("whatsapp")} Falar no WhatsApp`;
+    document.getElementById("stats").innerHTML = [
+      { n: "30+", l: "Anos de mercado" },
+      { n: "44", l: "Categorias de produtos" },
+      { n: "2.000+", l: "Clientes atendidos" },
+      { n: "100%", l: "Cobertura nacional" },
+    ].map(s => `<div class="stat"><strong>${s.n}</strong><span>${s.l}</span></div>`).join("");
+
+    document.getElementById("mvv").innerHTML = [
+      { ic: "flask", t: "Missão", d: "Fornecer aos laboratórios de análises clínicas soluções completas em produtos e equipamentos, com qualidade certificada e suporte técnico que viabilize diagnósticos precisos e confiáveis." },
+      { ic: "atom", t: "Visão", d: "Ser reconhecida como a parceira mais confiável do segmento laboratorial brasileiro, expandindo nossa atuação com inovação, ética e excelência operacional." },
+      { ic: "shield", t: "Valores", d: "Compromisso com o cliente, qualidade técnica, ética nas relações comerciais, responsabilidade com a saúde pública e desenvolvimento contínuo da nossa equipe." },
+    ].map(v => `<div class="value-card"><span class="ic">${I(v.ic)}</span><h4>${v.t}</h4><p>${v.d}</p></div>`).join("");
+
+    document.getElementById("diff").innerHTML = [
+      { ic: "award", t: "Experiência consolidada", d: "Mais de três décadas de relacionamento com laboratórios de pequeno, médio e grande porte em todo o Brasil." },
+      { ic: "truck", t: "Logística nacional", d: "Centro de distribuição estruturado com prazos compatíveis com a rotina laboratorial e rastreamento completo." },
+      { ic: "headset", t: "Assessoria especializada", d: "Equipe técnica e científica disponível para apoio em metodologias, validações e manutenção de equipamentos." },
+      { ic: "shield", t: "Qualidade certificada", d: "Trabalhamos com fornecedores e fabricantes que atendem aos padrões regulatórios da ANVISA e órgãos internacionais." },
+      { ic: "flask", t: "Catálogo abrangente", d: "Mais de 44 categorias entre reagentes, descartáveis, vidrarias, equipamentos e linha veterinária dedicada." },
+      { ic: "headset", t: "Atendimento próximo", d: "Consultor comercial dedicado, canais diretos por telefone, WhatsApp e e-mail com tempo de resposta ágil." },
+    ].map(v => `<div class="value-card"><span class="ic">${I(v.ic)}</span><h4>${v.t}</h4><p>${v.d}</p></div>`).join("");
+  </script>
+<script src="assets/tweaks.js"></script>
+</body>
+</html>

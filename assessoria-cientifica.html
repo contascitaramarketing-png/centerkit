@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Assessoria Científica — CenterKit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div id="ck-header"></div>
+  <section class="page-header">
+    <div class="container">
+      <nav class="breadcrumbs"><a href="index.html">Home</a><span class="sep">/</span><a href="#">Serviços</a><span class="sep">/</span><span>Assessoria Científica</span></nav>
+      <h1>Assessoria Científica</h1>
+      <p>Apoio especializado em metodologias, validação de protocolos e interpretação de resultados — para que seu laboratório alcance o melhor desempenho técnico.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="service-hero">
+        <div>
+          <span class="eyebrow">Suporte científico</span>
+          <h2 class="section-title">Conhecimento técnico que potencializa seus resultados</h2>
+          <p style="font-size:16px;color:var(--ck-muted);line-height:1.7">Nossa equipe de assessoria científica é composta por biomédicos, farmacêuticos e biólogos com experiência em rotina laboratorial. Acompanhamos você desde a escolha do reagente até a validação do método, sempre com foco na qualidade do diagnóstico.</p>
+          <ul class="service-list" id="list1"></ul>
+          <div style="margin-top:28px"><a href="fale-conosco.html" class="btn btn-primary">Solicitar Atendimento</a></div>
+        </div>
+        <div class="about-img" style="background-image:url('https://www.centerkit.com.br/uploads/69adf1ffd3bcc.jpeg');aspect-ratio:1/1"></div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-bg">
+    <div class="container">
+      <div class="text-center mb-24"><span class="eyebrow" style="justify-content:center">O que oferecemos</span><h2 class="section-title">Como nossa assessoria pode apoiar seu laboratório</h2></div>
+      <div class="values-grid" id="cards"></div>
+    </div>
+  </section>
+  <div id="ck-footer"></div>
+  <script src="assets/icons.js"></script><script src="assets/data.js"></script><script src="assets/layout.js"></script>
+  <script>
+    CK.render({});const I=CK.I;
+    document.getElementById("list1").innerHTML = [
+      ["microscope","Validação de metodologias","Apoio técnico para validação e implementação de novos métodos analíticos."],
+      ["flask","Seleção de reagentes","Indicação de reagentes adequados ao perfil e volume do seu laboratório."],
+      ["shield","Controle de qualidade","Orientação para programas de controle interno e externo de qualidade."],
+      ["headset","Treinamento técnico","Capacitação da equipe operacional sobre uso correto de produtos e equipamentos."],
+    ].map(i=>`<li><span class="ic">${I(i[0])}</span><div><strong>${i[1]}</strong><span>${i[2]}</span></div></li>`).join("");
+    document.getElementById("cards").innerHTML = [
+      ["microscope","Consultoria em metodologias","Avaliação técnica do método mais adequado para a realidade do seu laboratório, considerando volume, complexidade e infraestrutura."],
+      ["dna","Validação de protocolos","Apoio na validação analítica e na documentação de procedimentos conforme exigências regulatórias."],
+      ["shield","Controle de qualidade","Suporte na implantação de programas de controle interno e participação em ensaios de proficiência."],
+      ["headset","Treinamento contínuo","Capacitação da equipe técnica em uso correto de reagentes, calibradores e controles."],
+      ["flask","Atualização científica","Compartilhamento de novidades técnicas, atualizações de bula e melhorias metodológicas."],
+      ["award","Atendimento personalizado","Consultor científico dedicado, com canal direto para dúvidas técnicas e apoio em casos complexos."],
+    ].map(c=>`<div class="value-card"><span class="ic">${I(c[0])}</span><h4>${c[1]}</h4><p>${c[2]}</p></div>`).join("");
+  </script>
+<script src="assets/tweaks.js"></script>
+</body>
+</html>

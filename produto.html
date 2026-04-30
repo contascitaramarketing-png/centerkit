@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produto — CenterKit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div id="ck-header"></div>
+
+  <div style="background:var(--ck-bg);border-bottom:1px solid var(--ck-line);padding:14px 0">
+    <div class="container">
+      <nav class="breadcrumbs" style="color:var(--ck-muted)" id="bc">
+        <a href="index.html" style="color:var(--ck-muted)">Home</a><span class="sep">/</span>
+        <a href="produtos.html" style="color:var(--ck-muted)">Produtos</a><span class="sep">/</span>
+        <a id="bcCat" style="color:var(--ck-muted)">Categoria</a><span class="sep">/</span>
+        <span id="bcSku" style="color:var(--ck-dark)">Produto</span>
+      </nav>
+    </div>
+  </div>
+
+  <section class="section" style="padding:48px 0">
+    <div class="container">
+      <div class="pd-layout">
+        <div class="pd-gallery">
+          <div class="pd-main">
+            <button class="nav-arrow prev" id="pdPrev"></button>
+            <button class="nav-arrow next" id="pdNext"></button>
+            <span id="pdMainGlyph"></span>
+          </div>
+          <div class="pd-thumbs" id="pdThumbs"></div>
+        </div>
+        <div class="pd-info">
+          <span class="cat-tag" id="pdCat">Categoria</span>
+          <h1 id="pdTitle">Produto</h1>
+          <div class="sku" id="pdSku">SKU —</div>
+
+          <div class="stock-row">
+            <div class="item"><span class="lbl">Estoque:</span><span class="val" id="pdStock">0</span></div>
+            <div class="item"><span class="lbl">Disponibilidade:</span><span class="val" id="pdStatus">Sob Consulta</span></div>
+            <div class="item"><span class="lbl">Prazo:</span><span class="val">15 dias úteis</span></div>
+          </div>
+
+          <div class="price-block">
+            <small>Preço</small>
+            <div class="price">Sob Consulta</div>
+            <p style="margin:8px 0 0;font-size:13px;color:var(--ck-muted)">Solicite um orçamento personalizado para volumes a partir de 1 unidade.</p>
+          </div>
+
+          <div class="actions">
+            <div class="qty-lg">
+              <button id="qtyDec">−</button>
+              <input type="text" value="1" id="qtyVal" readonly>
+              <button id="qtyInc">+</button>
+            </div>
+            <button class="btn btn-primary btn-lg" id="addCart" style="flex:1"></button>
+          </div>
+
+          <a href="https://wa.me/5516991363022" target="_blank" class="btn btn-whats btn-block btn-lg" id="waBtn"></a>
+
+          <div class="pd-feat-grid mt-24">
+            <div class="pd-feat"><span class="ic" id="fIc1"></span><div><strong>Frete nacional</strong><span>Logística para todo o Brasil</span></div></div>
+            <div class="pd-feat"><span class="ic" id="fIc2"></span><div><strong>Qualidade certificada</strong><span>Registro ANVISA quando aplicável</span></div></div>
+            <div class="pd-feat"><span class="ic" id="fIc3"></span><div><strong>Suporte técnico</strong><span>Assessoria pós-venda</span></div></div>
+            <div class="pd-feat"><span class="ic" id="fIc4"></span><div><strong>Original do fabricante</strong><span>Garantia integral</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-48">
+        <div class="tabs">
+          <button class="tab active" data-tab="desc">Descrição</button>
+          <button class="tab" data-tab="spec">Especificações</button>
+          <button class="tab" data-tab="docs">Documentos</button>
+        </div>
+        <div id="tabContent" style="background:#fff;border:1px solid var(--ck-line);border-top:none;border-radius:0 0 var(--radius-md) var(--radius-md);padding:32px"></div>
+      </div>
+
+      <div class="mt-48">
+        <div class="section-head" style="margin-bottom:24px">
+          <h2 class="section-title" style="font-size:24px">Produtos relacionados</h2>
+          <a href="produtos.html" class="btn btn-ghost btn-sm" id="seeMore"></a>
+        </div>
+        <div class="product-grid" id="related"></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="ck-footer"></div>
+  <script src="assets/icons.js"></script><script src="assets/product-images.js?v=5"></script><script src="assets/data.js"></script><script src="assets/layout.js"></script>
+  <script>
+    CK.render({ active: "produtos" });
+    const I = CK.I, D = CK.D;
+    const params = new URLSearchParams(location.search);
+    const sku = params.get("sku") || "A0182";
+    let p = D.products.find(x => x.sku === sku) || { ...D.products[0], sku, title: params.get("nome") || "Produto", cat: params.get("cat") || "Categoria" };
+
+    document.getElementById("pdMainGlyph").innerHTML = window.CK_PRODUCT_IMG(p.sku, p.catId);
+    document.getElementById("pdPrev").innerHTML = I("chevLeft");
+    document.getElementById("pdNext").innerHTML = I("chevRight");
+    document.getElementById("bcCat").textContent = p.cat;
+    document.getElementById("bcCat").href = `categoria.html?id=${p.catId||159}&nome=${encodeURIComponent(p.cat)}`;
+    document.getElementById("bcSku").textContent = p.title;
+    document.getElementById("pdCat").textContent = p.cat;
+    document.getElementById("pdTitle").textContent = p.title;
+    document.getElementById("pdSku").textContent = `Código / SKU: ${p.sku}`;
+    document.getElementById("pdStock").textContent = p.stock;
+    document.getElementById("pdStatus").textContent = p.status;
+    document.getElementById("addCart").innerHTML = `${I("cartPlus")} Adicionar à Cotação`;
+    document.getElementById("waBtn").innerHTML = `${I("whatsapp")} Solicitar Orçamento via WhatsApp`;
+    document.getElementById("seeMore").innerHTML = `Ver mais ${I("arrowRight")}`;
+    ["fIc1","fIc2","fIc3","fIc4"].forEach((id,i) => document.getElementById(id).innerHTML = I(["truck","shield","headset","award"][i]));
+
+    // Thumbs
+    document.getElementById("pdThumbs").innerHTML = [0,1,2,3].map((i) => `<button class="${i===0?"active":""}">${window.CK_PRODUCT_IMG(p.sku, p.catId)}</button>`).join("");
+    document.querySelectorAll(".pd-thumbs button").forEach((b,i)=>b.onclick=()=>document.querySelectorAll(".pd-thumbs button").forEach((x,j)=>x.classList.toggle("active",i===j)));
+
+    // Qty + cart
+    const inp = document.getElementById("qtyVal");
+    document.getElementById("qtyDec").onclick = () => inp.value = Math.max(1, +inp.value - 1);
+    document.getElementById("qtyInc").onclick = () => inp.value = +inp.value + 1;
+    document.getElementById("addCart").onclick = () => CK.addToCart(p, +inp.value);
+
+    // Tabs
+    const tabs = {
+      desc: `<h3 style="margin:0 0 12px;font-size:18px;color:var(--ck-dark);font-family:var(--font-display)">Sobre o produto</h3>
+             <p style="color:var(--ck-muted);line-height:1.65;font-size:14.5px">${p.desc || "Reagente/insumo destinado ao uso em laboratórios de análises clínicas. Produto sujeito a registro nos órgãos competentes quando aplicável. Para informações detalhadas sobre composição, validade e modo de uso, consulte a bula técnica fornecida com o produto."}</p>
+             <p style="color:var(--ck-muted);line-height:1.65;font-size:14.5px;margin-top:14px">Para informações adicionais, certificados de análise, fichas de segurança ou cotações para volumes específicos, entre em contato com nossa equipe comercial.</p>`,
+      spec: `<table style="width:100%;border-collapse:collapse;font-size:14px">
+              ${[["Categoria",p.cat],["Código / SKU",p.sku],["Disponibilidade",p.status],["Estoque atual",p.stock],["Prazo médio","15 dias úteis"],["Garantia","Integral do fabricante"],["Embalagem","Conforme especificação do fabricante"],["Validade","Conforme bula"]].map(r => `<tr><td style="padding:12px 0;border-bottom:1px solid var(--ck-line);color:var(--ck-muted);width:30%">${r[0]}</td><td style="padding:12px 0;border-bottom:1px solid var(--ck-line);color:var(--ck-dark);font-weight:600">${r[1]}</td></tr>`).join("")}
+             </table>`,
+      docs: `<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+              ${["Bula Técnica","Certificado de Análise","Ficha de Segurança","Registro ANVISA"].map(d => `<div style="padding:16px;border:1px solid var(--ck-line);border-radius:8px;display:flex;justify-content:space-between;align-items:center"><div><strong style="display:block;font-size:14px;color:var(--ck-dark)">${d}</strong><span style="font-size:12px;color:var(--ck-muted)">Documento PDF</span></div><a href="#" class="btn btn-ghost btn-sm">Baixar</a></div>`).join("")}
+             </div>`
+    };
+    function paintTab(k) {
+      document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === k));
+      document.getElementById("tabContent").innerHTML = tabs[k];
+    }
+    paintTab("desc");
+    document.querySelectorAll(".tab").forEach(t => t.onclick = () => paintTab(t.dataset.tab));
+
+    // Related
+    const related = D.products.filter(x => x.sku !== p.sku).slice(0, 4);
+    document.getElementById("related").innerHTML = related.map(p => `
+      <article class="product-card">
+        <a href="produto.html?sku=${p.sku}" style="color:inherit">
+          <div class="pc-image">
+            <span class="cat-tag">${p.cat}</span>
+            <span class="stock-pill ${p.stock>0?"in":""}"><span class="dot"></span>${p.status}</span>
+            ${window.CK_PRODUCT_IMG(p.sku, p.catId)}
+          </div>
+        </a>
+        <div class="pc-body">
+          <a href="produto.html?sku=${p.sku}" style="color:inherit;text-decoration:none"><h3 class="pc-title">${p.title}</h3></a>
+          <div class="pc-meta">SKU ${p.sku}</div>
+          <div class="pc-price"><small>A partir de</small>Sob Consulta</div>
+          <a href="produto.html?sku=${p.sku}" class="btn btn-secondary btn-sm" style="margin-top:8px">Ver detalhes ${I("arrowRight")}</a>
+        </div>
+      </article>`).join("");
+  </script>
+<script src="assets/tweaks.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Lista de Cotação — CenterKit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div id="ck-header"></div>
+  <section class="page-header">
+    <div class="container">
+      <nav class="breadcrumbs"><a href="index.html">Home</a><span class="sep">/</span><span>Lista de Cotação</span></nav>
+      <h1>Sua lista de cotação</h1>
+      <p>Revise os itens, ajuste quantidades e envie a solicitação de orçamento — nossa equipe responderá em até 1 dia útil.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cart-page-grid">
+        <div>
+          <div class="cart-table" id="cartTable"></div>
+          <div style="margin-top:16px"><a href="produtos.html" class="btn btn-ghost btn-sm" id="back"></a></div>
+        </div>
+
+        <aside class="summary-card">
+          <h4>Resumo da cotação</h4>
+          <div class="summary-row"><span>Itens</span><strong id="sItems">0</strong></div>
+          <div class="summary-row"><span>Quantidade total</span><strong id="sQty">0</strong></div>
+          <div class="summary-row"><span>Valor total</span><span style="color:var(--ck-muted)">Sob consulta</span></div>
+          <div class="summary-row total"><span>Total a orçar</span><span>Sob consulta</span></div>
+          <button class="btn btn-whats btn-block btn-lg" style="margin-top:18px" id="waSend"></button>
+          <button class="btn btn-secondary btn-block" style="margin-top:10px" id="emailSend"></button>
+          <p style="font-size:12px;color:var(--ck-muted);margin:14px 0 0;text-align:center;line-height:1.5">Sua solicitação será enviada com seus dados de contato. Não realizamos cobrança automática.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div id="ck-footer"></div>
+  <script src="assets/icons.js"></script><script src="assets/product-images.js?v=5"></script><script src="assets/data.js"></script><script src="assets/layout.js"></script>
+  <script>
+    CK.render({});const I=CK.I;
+    document.getElementById("back").innerHTML = `${I("chevLeft")} Continuar comprando`;
+    document.getElementById("waSend").innerHTML = `${I("whatsapp")} Solicitar via WhatsApp`;
+    document.getElementById("emailSend").innerHTML = `${I("email")} Solicitar por E-mail`;
+
+    function paint(){
+      const cart = CK.getCart();
+      const tbl = document.getElementById("cartTable");
+      if (!cart.length) {
+        tbl.innerHTML = `<div class="cart-empty" style="padding:80px 20px;text-align:center">${I("bagx")}<p style="margin-top:14px;font-size:15px;color:var(--ck-muted)">Sua lista está vazia.</p><a href="produtos.html" class="btn btn-primary mt-16" style="margin-top:16px">Ver catálogo</a></div>`;
+        document.getElementById("sItems").textContent = 0;
+        document.getElementById("sQty").textContent = 0;
+        return;
+      }
+      tbl.innerHTML = cart.map(it => `
+        <div class="cart-row" data-sku="${it.sku}">
+          <div class="img-cell">${window.CK_PRODUCT_IMG(it.sku, it.catId)}</div>
+          <div><h4>${it.title}</h4><div class="meta">${it.cat} · SKU ${it.sku}</div><div style="margin-top:8px;font-size:13px;color:var(--ck-green-deep);font-weight:700">Sob consulta</div></div>
+          <div class="qty"><button data-act="dec">−</button><input type="text" value="${it.qty}" readonly><button data-act="inc">+</button></div>
+          <button class="ci-rm" title="Remover">${I("trash")}</button>
+        </div>`).join("");
+      tbl.querySelectorAll(".cart-row").forEach(row => {
+        const sku = row.dataset.sku;
+        row.querySelector('[data-act="dec"]').onclick = () => { const c = CK.getCart(); const i = c.find(x=>x.sku===sku); if(i&&i.qty>1){i.qty--;localStorage.setItem("ck_cart",JSON.stringify(c));CK.updateCartUI();paint();} };
+        row.querySelector('[data-act="inc"]').onclick = () => { const c = CK.getCart(); const i = c.find(x=>x.sku===sku); if(i){i.qty++;localStorage.setItem("ck_cart",JSON.stringify(c));CK.updateCartUI();paint();} };
+        row.querySelector(".ci-rm").onclick = () => { CK.removeFromCart(sku); paint(); };
+      });
+      document.getElementById("sItems").textContent = cart.length;
+      document.getElementById("sQty").textContent = cart.reduce((s,i)=>s+i.qty,0);
+    }
+    paint();
+    document.getElementById("waSend").onclick = () => {
+      const cart = CK.getCart();
+      if (!cart.length) return CK.showToast("Lista vazia — adicione produtos primeiro");
+      const text = encodeURIComponent("Olá CenterKit, gostaria de orçar:\n\n" + cart.map(i=>`• ${i.qty}× ${i.title} (SKU ${i.sku})`).join("\n"));
+      window.open(`https://wa.me/${CK.D.whatsappRaw}?text=${text}`, "_blank");
+    };
+    document.getElementById("emailSend").onclick = () => CK.showToast("Solicitação por e-mail simulada");
+  </script>
+<script src="assets/tweaks.js"></script>
+</body>
+</html>
